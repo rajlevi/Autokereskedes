@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<efcore context-namespace="Autoker" namespace="Autoker" p1:name="cnAutoker" p1:Guid="44d25970-6e52-493d-be8a-613186808e58" xmlns:p1="http://devart.com/schemas/EntityDeveloper/1.0">
+  <class name="Kereskedes" entity-set="Kereskedes" table="Kereskedesek" p1:Guid="9625b3ee-bda2-489c-807b-698d866c6e79">
+    <id name="KereskedesId" type="Int16" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="c5164097-b8b1-432b-8ed5-3ee06e048272">
+      <column name="" />
+    </id>
+    <property name="CimId" type="Int16" shadow="True" p1:ValidateRequired="true" p1:Guid="f389bbb8-926b-4c7e-8def-257553f021ad">
+      <column name="" />
+    </property>
+    <property name="EladoId" type="Int16" shadow="True" p1:ValidateRequired="true" p1:Guid="ac831724-80ec-4229-9e73-4d95d47fb397">
+      <column name="" />
+    </property>
+    <property name="AutoId" type="Int16" shadow="True" p1:ValidateRequired="true" p1:Guid="70f63df9-42e0-4be8-8905-47eb95d0178d">
+      <column name="" />
+    </property>
+    <property name="Nev" type="String" p1:ValidateRequired="true" p1:Guid="efebddc7-5aa4-4dd0-9de3-f1a80b490f7e">
+      <column name="" />
+    </property>
+    <property name="Jegyzekszam" type="String" p1:ValidateRequired="true" p1:Guid="f7497bc6-f0d4-4f09-a55c-bc2d932344b7">
+      <column name="" />
+    </property>
+  </class>
+  <class name="Cim" entity-set="Cims" table="Cimek" p1:Guid="42af4074-2a73-4f18-8e3a-c65300b30f16">
+    <id name="CimId" type="Int16" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="3b955846-ae99-4400-a25c-0dd95de55097">
+      <column name="" />
+    </id>
+    <property name="Varos" type="String" p1:ValidateRequired="true" p1:Guid="d8eba009-acfe-4622-9f73-0bd1e90cfd13">
+      <column name="" />
+    </property>
+    <property name="Utca" type="String" p1:ValidateRequired="true" p1:Guid="a5de7877-50fd-454c-ac13-7b810d2a722f">
+      <column name="" />
+    </property>
+    <property name="Hazszam" type="String" p1:ValidateRequired="true" p1:Guid="6901bada-8284-41fc-b86c-0776fc193d1e">
+      <column name="" />
+    </property>
+  </class>
+  <class name="Auto" entity-set="Autok" table="Autok" p1:Guid="3443c680-f7d9-4eea-8d16-5743cf9f0420">
+    <id name="AutoId" type="Int16" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="fd590834-75bd-40a4-b4b8-15292abeb6e9">
+      <column name="" />
+    </id>
+    <property name="Marka" type="String" p1:ValidateRequired="true" p1:Guid="55ef8595-de6f-4bee-bd9f-45dabb0182f8">
+      <column name="" />
+    </property>
+    <property name="Kivitel" type="String" p1:ValidateRequired="true" p1:Guid="a9174c29-3878-4d31-b6a6-87e89f58def4">
+      <column name="" />
+    </property>
+    <property name="Evjarat" type="String" p1:ValidateRequired="true" p1:Guid="cb3aabf2-b773-41c5-9834-9b7e7d78c5b6">
+      <column name="" />
+    </property>
+    <property name="Uzemanyag" type="String" p1:ValidateRequired="true" p1:Guid="d89522fb-26a2-441a-9895-121458bbbabe">
+      <column name="" />
+    </property>
+    <property name="Szin" type="String" p1:ValidateRequired="true" p1:Guid="908c3ef2-7461-4753-b17d-2f1f87dac63e">
+      <column name="" />
+    </property>
+  </class>
+  <class name="Elado" entity-set="Eladok" table="Eladok" p1:Guid="bff73f4f-9cd7-4bb6-b211-7903c820a83f">
+    <id name="EladoId" type="Int16" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="20d2f976-0650-4b0a-99da-a35832c97c7e">
+      <column name="" />
+    </id>
+    <property name="Nev" type="String" p1:ValidateRequired="true" p1:Guid="31fff9b8-8098-4602-a1ee-bc7fd54fa332">
+      <column name="" />
+    </property>
+    <property name="Telszam" type="String" p1:ValidateRequired="true" p1:Guid="3cf9099b-062f-4000-b5bc-15dd7a4b026b">
+      <column name="" />
+    </property>
+    <property name="Szuldatum" type="String" p1:ValidateRequired="true" p1:Guid="d56a1aa9-8498-428b-ba85-34c8508c6376">
+      <column name="" />
+    </property>
+  </class>
+  <associations>
+    <association name="Cim_Kereskedes" cardinality="OneToOne" p1:Guid="0b9730f8-b0be-4758-9a90-ff47320dd2f2">
+      <end1 multiplicity="One" name="Cim" class="Kereskedes" relation-class="Cim" constrained="True" lazy="False" p1:Guid="b17acc38-9c04-43e9-a780-67a63045945b">
+        <property name="CimId" />
+      </end1>
+      <end2 multiplicity="ZeroOrOne" name="Kereskedes" class="Cim" relation-class="Kereskedes" constrained="False" lazy="False" p1:Guid="dd3e5b9b-e107-4fbf-a149-495662823be0">
+        <property name="CimId" />
+      </end2>
+    </association>
+    <association name="Kereskedes_Auto" cardinality="OneToMany" p1:Guid="2bdf4aab-4aff-4ea3-bff7-5ade20cfaa17">
+      <end1 multiplicity="One" name="Kereskedes1" class="Auto" relation-class="Kereskedes" constrained="True" lazy="False" p1:Guid="963d754c-ea33-4467-9a01-a3da1801a4cc">
+        <property name="AutoId" />
+      </end1>
+      <end2 multiplicity="Many" name="Autos" class="Kereskedes" relation-class="Auto" lazy="False" p1:Guid="423b6768-1287-4f28-8e39-06fb0d9f1fd4">
+        <property name="AutoId" />
+      </end2>
+    </association>
+    <association name="Kereskedes_Elado" cardinality="OneToMany" p1:Guid="6181eb7f-0fb2-47a8-83ba-19cf24c801bb">
+      <end1 multiplicity="One" name="Kereskedes1" class="Elado" relation-class="Kereskedes" constrained="True" lazy="False" p1:Guid="30a4aa74-8070-4db2-9445-28945f0c9013">
+        <property name="EladoId" />
+      </end1>
+      <end2 multiplicity="Many" name="Elados" class="Kereskedes" relation-class="Elado" lazy="False" p1:Guid="08905d72-d967-4d59-a1fb-7941c0c27a83">
+        <property name="EladoId" />
+      </end2>
+    </association>
+  </associations>
+</efcore>
