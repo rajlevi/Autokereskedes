@@ -55,16 +55,14 @@ namespace Autokereskedes
 
         private void szerzodesBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Szerzodesiras());
-             bool admin = false;
-             if (admin == true)
-             {
-                 NavigationService.Navigate(new Szerzodesiras());
-             }
-             else
-             {
-                 MessageBox.Show("Nincs jogosultsagod!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-             }
+            if (loggedInUser != null && loggedInUser.Role == "admin")
+            {
+                NavigationService.Navigate(new Szerzodesiras());
+            }
+            else
+            {
+                MessageBox.Show("Nincs jogosultságod!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void logoutBtn_Click(object sender, RoutedEventArgs e)
