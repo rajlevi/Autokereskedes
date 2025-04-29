@@ -1,0 +1,44 @@
+﻿<Page x:Class="Autokereskedes.Mainmenu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Autokereskedes"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="800"
+      Title="Mainmenu">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="UserInfoTextBlock" Grid.Row="0" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="16" Margin="16,8,16,8" HorizontalAlignment="Right"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="autokBtn"  Content="Autok" Margin="30"  Grid.Row="0" Grid.Column="0" Click="autokBtn_Click"/>
+            <Button x:Name="kereskedesekBtn" Content="Kereskedesek" Margin="30"  Grid.Row="0" Grid.Column="1" Click="kereskedesekBtn_Click"/>
+            <Button x:Name="szerzodesBtn" Content="Szerzodes iras" Margin="30"  Grid.Row="0" Grid.Column="2" Click="szerzodesBtn_Click"/>
+
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button  x:Name="logoutBtn" Content="Logout" Margin="20 90" Grid.Column="0" Click="logoutBtn_Click"/>
+                <Button x:Name="exitBtn" Content="Exit" Margin="20 90" Grid.Column="1" Click="exitBtn_Click"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

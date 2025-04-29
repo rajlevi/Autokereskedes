@@ -1,0 +1,35 @@
+﻿<Page x:Class="Autokereskedes.AutoLista"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Autokereskedes"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="1200"
+      Title="AutoLista">
+
+    <Grid Background="{DynamicResource MaterialDesignPaper}">
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Margin="32" Width="320">
+            <TextBlock Text="Autók összetett keresése" FontSize="22" FontWeight="Bold" Margin="0,0,0,12"/>
+            <TextBox x:Name="MarkaTextBox" materialDesign:HintAssist.Hint="Márka" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8" TextChanged="Kereses_TextChanged"/>
+            <TextBox x:Name="EvjaratTextBox" materialDesign:HintAssist.Hint="Évjárat" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8" TextChanged="Kereses_TextChanged"/>
+            <TextBox x:Name="UzemanyagTextBox" materialDesign:HintAssist.Hint="Üzemanyag" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8" TextChanged="Kereses_TextChanged"/>
+            <TextBox x:Name="SzinTextBox" materialDesign:HintAssist.Hint="Szín" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8" TextChanged="Kereses_TextChanged"/>
+            <TextBox x:Name="KivitelTextBox" materialDesign:HintAssist.Hint="Kivitel" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8" TextChanged="Kereses_TextChanged"/>
+            <Button x:Name="keresesBtn" Content="Keresés" Style="{StaticResource MaterialDesignRaisedButton}" Click="keresesBtn_Click" Margin="0,12,0,0"/>
+        </StackPanel>
+        <DataGrid x:Name="ResultsDataGrid" Margin="400,32,32,80" VerticalAlignment="Top" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding AutoID}" Width="*"/>
+                <DataGridTextColumn Header="Márka" Binding="{Binding Marka}" Width="*"/>
+                <DataGridTextColumn Header="Évjárat" Binding="{Binding Evjarat}" Width="*"/>
+                <DataGridTextColumn Header="Kivitel" Binding="{Binding Kivitel}" Width="*"/>
+                <DataGridTextColumn Header="Szín" Binding="{Binding Szin}" Width="*"/>
+                <DataGridTextColumn Header="Garancia" Binding="{Binding Garancia}" Width="*"/>
+                <DataGridTextColumn Header="Üzemanyag" Binding="{Binding Uzemenyag}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="backBtn" Content="Vissza" Style="{StaticResource MaterialDesignFlatButton}" Width="100" Height="32" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="32,0,0,32" Click="backBtn_Click"/>
+    </Grid>
+</Page>
