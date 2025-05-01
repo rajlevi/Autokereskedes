@@ -67,6 +67,12 @@
     <property name="Szuldatum" type="String" p1:ValidateRequired="true" p1:Guid="d56a1aa9-8498-428b-ba85-34c8508c6376">
       <column name="" />
     </property>
+    <property name="email" type="String" p1:ValidateRequired="true" p1:Guid="28d1898d-b8d8-49ba-9307-fb5b2618c474">
+      <column name="" />
+    </property>
+    <property name="jelszo" type="String" p1:ValidateRequired="true" p1:Guid="50d7b413-5259-45ab-8a81-d4ca0b76ef9a">
+      <column name="" />
+    </property>
   </class>
   <associations>
     <association name="Cim_Kereskedes" cardinality="OneToOne" p1:Guid="0b9730f8-b0be-4758-9a90-ff47320dd2f2">

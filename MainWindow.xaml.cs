@@ -31,20 +31,20 @@ namespace Autokereskedes
         private void DBInic()
         {
             KezdőAdatok();
-            /*cn.Database.EnsureCreated();
+            cn.Database.EnsureCreated();
             if (cn.Kereskedes == null) return;
             if (!cn.Kereskedes.Any())
             {
                 KezdőAdatok();
-            }*/
+            }
             AdatKiír();
         }
         private void KezdőAdatok()
         {
             var c1 = new Cim { Varos = "Kecskemét", Utca = "Izsáki út", Hazszam = "10" };
-            var k1 = new Kereskedes { Nev = "JoKocsi", Jegyzekszam = "123-124-123" };
+            var k1 = new Autoker.Kereskedes { Nev = "JoKocsi", Jegyzekszam = "123-124-123" };
             c1.Kereskedes=k1;
-            var e1 = new Elado { Nev = "Kis Pista", Telszam = "+36303527532", Szuldatum = "1989.10.05" };
+            var e1 = new Elado { Nev = "Kis Pista", Telszam = "+36303527532", Szuldatum = "1989.10.05", email="kispista@gmail.com", jelszo = "kispista" };
             e1.Kereskedes1=k1;
             var a1 = new Auto { Marka = "BMW", Kivitel = "coupe", Evjarat = "2006", Uzemanyag = "Benzin", Szin = "Szürke" };
             a1.Kereskedes1 = k1;
