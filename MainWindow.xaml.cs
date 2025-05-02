@@ -26,11 +26,10 @@ namespace Autokereskedes
             InitializeComponent();
             cn = new cnAutoker();
             DBInic();
-            // MainFrame.Navigate(new LoginPage());
+            MainFrame.Navigate(new LoginPage());
         }
         private void DBInic()
         {
-            KezdőAdatok();
             cn.Database.EnsureCreated();
             if (cn.Kereskedes == null) return;
             if (!cn.Kereskedes.Any())
@@ -46,12 +45,13 @@ namespace Autokereskedes
             c1.Kereskedes=k1;
             var e1 = new Elado { Nev = "Kis Pista", Telszam = "+36303527532", Szuldatum = "1989.10.05", email="kispista@gmail.com", jelszo = "kispista" };
             e1.Kereskedes1=k1;
-            var a1 = new Auto { Marka = "BMW", Kivitel = "coupe", Evjarat = "2006", Uzemanyag = "Benzin", Szin = "Szürke" };
+            var a1 = new Auto {Marka = "BMW", Kivitel = "coupe", Evjarat = "2006", Uzemanyag = "Benzin", Szin = "Szürke" };
             a1.Kereskedes1 = k1;
-            cn.Cims.Add(c1);
             cn.Kereskedes.Add(k1);
-            cn.Autok.Add(a1);
-            cn.Eladok.Add(e1);
+            cn.Cims.Add(c1);
+            cn.SaveChanges();
+            cn.Autos.Add(a1);
+            cn.Elados.Add(e1);
             cn.SaveChanges();
         }
         private void AdatKiír()
@@ -60,7 +60,7 @@ namespace Autokereskedes
             foreach (var p in
                 cn.Kereskedes.Include(pe => pe.Cim).Include(pe => pe.Autos).Include(pe => pe.Elados).ToList())
             {
-                s += p.Nev;
+                s += p.Nev+' '+p.Jegyzekszam+' '+p.Cim.Varos + ' ' + p.Cim.Utca + ' ' + p.Cim.Hazszam;
             }
             MessageBox.Show(s);
         }

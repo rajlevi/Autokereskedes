@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <efcore context-namespace="Autoker" namespace="Autoker" p1:name="cnAutoker" p1:Guid="44d25970-6e52-493d-be8a-613186808e58" xmlns:p1="http://devart.com/schemas/EntityDeveloper/1.0">
-  <class name="Kereskedes" entity-set="Kereskedes" table="Kereskedesek" p1:Guid="9625b3ee-bda2-489c-807b-698d866c6e79">
-    <id name="KereskedesId" type="Int16" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="c5164097-b8b1-432b-8ed5-3ee06e048272">
+  <class name="Kereskedes" entity-set="Kereskedes" table="Kereskedes" p1:Guid="9625b3ee-bda2-489c-807b-698d866c6e79">
+    <id name="KereskedesId" type="Int16" p1:ValidateRequired="true" p1:Guid="c5164097-b8b1-432b-8ed5-3ee06e048272">
       <column name="" />
     </id>
     <property name="CimId" type="Int16" shadow="True" p1:ValidateRequired="true" p1:Guid="f389bbb8-926b-4c7e-8def-257553f021ad">
@@ -20,7 +20,7 @@
       <column name="" />
     </property>
   </class>
-  <class name="Cim" entity-set="Cims" table="Cimek" p1:Guid="42af4074-2a73-4f18-8e3a-c65300b30f16">
+  <class name="Cim" entity-set="Cims" table="Cims" p1:Guid="42af4074-2a73-4f18-8e3a-c65300b30f16">
     <id name="CimId" type="Int16" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="3b955846-ae99-4400-a25c-0dd95de55097">
       <column name="" />
     </id>
@@ -34,8 +34,8 @@
       <column name="" />
     </property>
   </class>
-  <class name="Auto" entity-set="Autok" table="Autok" p1:Guid="3443c680-f7d9-4eea-8d16-5743cf9f0420">
-    <id name="AutoId" type="Int16" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="fd590834-75bd-40a4-b4b8-15292abeb6e9">
+  <class name="Auto" entity-set="Autos" table="Autos" p1:Guid="3443c680-f7d9-4eea-8d16-5743cf9f0420">
+    <id name="AutoId" type="Int16" p1:ValidateRequired="true" p1:Guid="fd590834-75bd-40a4-b4b8-15292abeb6e9">
       <column name="" />
     </id>
     <property name="Marka" type="String" p1:ValidateRequired="true" p1:Guid="55ef8595-de6f-4bee-bd9f-45dabb0182f8">
@@ -54,7 +54,7 @@
       <column name="" />
     </property>
   </class>
-  <class name="Elado" entity-set="Eladok" table="Eladok" p1:Guid="bff73f4f-9cd7-4bb6-b211-7903c820a83f">
+  <class name="Elado" entity-set="Elados" table="Elados" p1:Guid="bff73f4f-9cd7-4bb6-b211-7903c820a83f">
     <id name="EladoId" type="Int16" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="20d2f976-0650-4b0a-99da-a35832c97c7e">
       <column name="" />
     </id>
