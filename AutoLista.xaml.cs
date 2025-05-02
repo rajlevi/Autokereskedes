@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Autoker;
 
 namespace Autokereskedes
 {
@@ -36,31 +39,24 @@ namespace Autokereskedes
             }
         }
 
-        private List<Auto> autoLista = new List<Auto>
+        /*private List<Auto> autoLista = new List<Auto>
         {
             new Auto { AutoID = 1, Marka = "Toyota", Evjarat = 2018, Kivitel = "Sedan", Szin = "Fehér", Garancia = "2 év", Uzemenyag = "Benzin" },
             new Auto { AutoID = 2, Marka = "BMW", Evjarat = 2020, Kivitel = "Kombi", Szin = "Fekete", Garancia = "3 év", Uzemenyag = "Dízel" },
             new Auto { AutoID = 3, Marka = "Audi", Evjarat = 2019, Kivitel = "SUV", Szin = "Kék", Garancia = "1 év", Uzemenyag = "Benzin" },
             new Auto { AutoID = 4, Marka = "Suzuki", Evjarat = 2017, Kivitel = "Hatchback", Szin = "Piros", Garancia = "Nincs", Uzemenyag = "Benzin" }
-        };
+        };*/
+
+        cnAutoker cn;
+        List<Autoker.Auto> autok = new List<Autoker.Auto>();
         public AutoLista()
         {
             InitializeComponent();
-            // IDE KELL AZ ADATBÁZISBÓL BETÖLTENI AZ AUTÓKAT, ha majd csatlakoztatod az adatbázist:
-            // Példa Entity Framework esetén:
-            // using (var context = new SajatDbContext())
-            // {
-            //     autoLista = context.Autos.ToList();
-            // }
-            ResultsDataGrid.ItemsSource = autoLista;
+            
+            cn = new cnAutoker();
+            autok.AddRange(cn.Autos.ToList());
+            ResultsDataGrid.ItemsSource = autok;
         }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            // Az autók listájának inicializálása
-
-        }
-
         private void keresesBtn_Click(object sender, RoutedEventArgs e)
         {
             string marka = MarkaTextBox.Text.ToLower();
@@ -69,10 +65,10 @@ namespace Autokereskedes
             string szin = SzinTextBox.Text.ToLower();
             string kivitel = KivitelTextBox.Text.ToLower();
 
-            var talalatok = autoLista.Where(a =>
+            var talalatok = autok.Where(a =>
                 (string.IsNullOrWhiteSpace(marka) || a.Marka.ToLower().Contains(marka)) &&
                 (string.IsNullOrWhiteSpace(evjarat) || a.Evjarat.ToString().Contains(evjarat)) &&
-                (string.IsNullOrWhiteSpace(uzemanyag) || a.Uzemenyag.ToLower().Contains(uzemanyag)) &&
+                (string.IsNullOrWhiteSpace(uzemanyag) || a.Uzemanyag.ToLower().Contains(uzemanyag)) &&
                 (string.IsNullOrWhiteSpace(szin) || a.Szin.ToLower().Contains(szin)) &&
                 (string.IsNullOrWhiteSpace(kivitel) || a.Kivitel.ToLower().Contains(kivitel))
             ).ToList();
@@ -99,10 +95,10 @@ namespace Autokereskedes
             string szin = SzinTextBox.Text.ToLower();
             string kivitel = KivitelTextBox.Text.ToLower();
 
-            var talalatok = autoLista.Where(a =>
+            var talalatok = autok.Where(a =>
                 (string.IsNullOrWhiteSpace(marka) || a.Marka.ToLower().Contains(marka)) &&
                 (string.IsNullOrWhiteSpace(evjarat) || a.Evjarat.ToString().Contains(evjarat)) &&
-                (string.IsNullOrWhiteSpace(uzemanyag) || a.Uzemenyag.ToLower().Contains(uzemanyag)) &&
+                (string.IsNullOrWhiteSpace(uzemanyag) || a.Uzemanyag.ToLower().Contains(uzemanyag)) &&
                 (string.IsNullOrWhiteSpace(szin) || a.Szin.ToLower().Contains(szin)) &&
                 (string.IsNullOrWhiteSpace(kivitel) || a.Kivitel.ToLower().Contains(kivitel))
             ).ToList();

@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Autoker;
 
 namespace Autokereskedes
 {
@@ -20,25 +23,26 @@ namespace Autokereskedes
     /// </summary>
     public partial class KereskedesLista : Page
     {
-        private List<Kereskedes> kereskedesek = new List<Kereskedes>
+        cnAutoker cn;
+        List<Autoker.Kereskedes> kereskedes = new List<Autoker.Kereskedes>();
+
+        /*private List<Kereskedes> kereskedesek = new List<Kereskedes>
         {
             new Kereskedes { KereskedesID = 1, Nev = "Karcsi Autóház", Varos = "Budapest", Utca = "Fő utca 1.", Jegyzekszam = "12345", Szerviz = "Van", Ferohely = 50 },
             new Kereskedes { KereskedesID = 2, Nev = "MaxiCar", Varos = "Debrecen", Utca = "Kossuth tér 2.", Jegyzekszam = "23456", Szerviz = "Nincs", Ferohely = 30 },
             new Kereskedes { KereskedesID = 3, Nev = "AutoPlaza", Varos = "Győr", Utca = "Petőfi S. u. 3.", Jegyzekszam = "34567", Szerviz = "Van", Ferohely = 40 },
             new Kereskedes { KereskedesID = 4, Nev = "CityAutó", Varos = "Szeged", Utca = "Dóm tér 4.", Jegyzekszam = "45678", Szerviz = "Nincs", Ferohely = 25 },
             new Kereskedes { KereskedesID = 5, Nev = "LuxCar", Varos = "Budapest", Utca = "Andrássy út 5.", Jegyzekszam = "56789", Szerviz = "Van", Ferohely = 60 }
-        };
+        };*/
 
         public KereskedesLista()
         {
             InitializeComponent();
-            // IDE KELL AZ ADATBÁZISBÓL BETÖLTENI A KERESKEDÉSEKET, ha majd csatlakoztatod az adatbázist:
-            // Példa Entity Framework esetén:
-            // using (var context = new SajatDbContext())
-            // {
-            //     kereskedesek = context.Kereskedesek.ToList();
-            // }
-            ResultsDataGrid.ItemsSource = kereskedesek;
+            //OSSZECSATOLNI A CIMEK TABLAVAL!!!!!
+            
+            cn = new cnAutoker();
+            kereskedes.AddRange(cn.Kereskedes.ToList());
+            ResultsDataGrid.ItemsSource = kereskedes;
         }
 
         private void backBtn_Click(object sender, RoutedEventArgs e)
@@ -57,20 +61,20 @@ namespace Autokereskedes
             string szerviz = SzervizTextBox.Text.ToLower();
             string ferohely = FerohelyTextBox.Text.ToLower();
 
-            var talalatok = kereskedesek.Where(k =>
+            var talalatok = kereskedes.Where(k =>
                 (string.IsNullOrWhiteSpace(nev) || k.Nev.ToLower().Contains(nev)) &&
-                (string.IsNullOrWhiteSpace(varos) || k.Varos.ToLower().Contains(varos)) &&
-                (string.IsNullOrWhiteSpace(utca) || k.Utca.ToLower().Contains(utca)) &&
-                (string.IsNullOrWhiteSpace(jegyzekszam) || k.Jegyzekszam.ToLower().Contains(jegyzekszam)) &&
-                (string.IsNullOrWhiteSpace(szerviz) || k.Szerviz.ToLower().Contains(szerviz)) &&
-                (string.IsNullOrWhiteSpace(ferohely) || k.Ferohely.ToString().Contains(ferohely))
+                //(string.IsNullOrWhiteSpace(varos) || k.Varos.ToLower().Contains(varos)) &&
+                //(string.IsNullOrWhiteSpace(utca) || k.Utca.ToLower().Contains(utca)) &&
+                (string.IsNullOrWhiteSpace(jegyzekszam) || k.Jegyzekszam.ToLower().Contains(jegyzekszam)) //&&
+                //(string.IsNullOrWhiteSpace(szerviz) || k.Szerviz.ToLower().Contains(szerviz)) &&
+                //(string.IsNullOrWhiteSpace(ferohely) || k.Ferohely.ToString().Contains(ferohely))
             ).ToList();
 
             ResultsDataGrid.ItemsSource = talalatok;
         }
     }
 
-    public class Kereskedes
+    /*public class Kereskedes
     {
         public int KereskedesID { get; set; }
         public string Nev { get; set; }
@@ -79,5 +83,5 @@ namespace Autokereskedes
         public string Jegyzekszam { get; set; }
         public string Szerviz { get; set; }
         public int Ferohely { get; set; }
-    }
+    }*/
 }
