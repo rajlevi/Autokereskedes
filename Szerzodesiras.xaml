@@ -12,20 +12,31 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="32" Width="500" HorizontalAlignment="Center">
                 <TextBlock Text="Autó adásvételi szerződés" FontSize="24" FontWeight="Bold" Margin="0,0,0,24"/>
-                <TextBlock Text="Eladó adatai" FontWeight="Bold" Margin="0,0,0,8"/>
-                <TextBox x:Name="EladoNevTextBox" materialDesign:HintAssist.Hint="Eladó neve" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8"/>
-                <TextBox x:Name="EladoCimTextBox" materialDesign:HintAssist.Hint="Eladó címe" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,16"/>
+
+                <!-- Eladó adatai -->
+                <TextBlock Text="Eladó adatai" FontWeight="Bold" Margin="0,0,0,8" Height="28"/>
+                <ListBox x:Name="EladokListBox" DisplayMemberPath="Nev" Height="100" SelectionChanged="EladokListBox_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+
+                <!-- Vevő adatai -->
                 <TextBlock Text="Vevő adatai" FontWeight="Bold" Margin="0,0,0,8"/>
                 <TextBox x:Name="VevoNevTextBox" materialDesign:HintAssist.Hint="Vevő neve" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8"/>
                 <TextBox x:Name="VevoCimTextBox" materialDesign:HintAssist.Hint="Vevő címe" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,16"/>
+
+                <!-- Autó adatai -->
                 <TextBlock Text="Autó adatai" FontWeight="Bold" Margin="0,0,0,8"/>
-                <TextBox x:Name="MarkaTextBox" materialDesign:HintAssist.Hint="Márka" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8"/>
-                <TextBox x:Name="TipusTextBox" materialDesign:HintAssist.Hint="Típus" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8"/>
-                <TextBox x:Name="EvjaratTextBox" materialDesign:HintAssist.Hint="Évjárat" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8"/>
-                <TextBox x:Name="ArTextBox" materialDesign:HintAssist.Hint="Vételár (Ft)" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,16"/>
+                <ListBox x:Name="AutokListBox" DisplayMemberPath="Marka" Height="100" SelectionChanged="AutokListBox_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+
+                <TextBox x:Name="ArTextBox" materialDesign:HintAssist.Hint="Autó ára (Ft)" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,16" PreviewTextInput="ArTextBox_PreviewTextInput"/>
+
+
+                <!-- Dátum -->
                 <DatePicker x:Name="DatumPicker" Margin="0,0,0,16" materialDesign:HintAssist.Hint="Dátum"/>
+
+                <!-- Hibaüzenet -->
                 <TextBlock x:Name="ErrorTextBlock" Foreground="Red" FontWeight="Bold" Margin="0,0,0,8" TextWrapping="Wrap" Visibility="Collapsed"/>
-                <Button x:Name="pdfBtn" Content="Szerződés mentése PDF-be" Style="{StaticResource MaterialDesignRaisedButton}" Height="40" Margin="0,0,0,8" Click="pdfBtn_Click"/>
+
+                <!-- Gombok -->
+                <Button x:Name="pdfBtn" Content="Szerződés mentése PDF-be" Style="{StaticResource MaterialDesignRaisedButton}" Height="40" Click="pdfBtn_Click"/>
                 <Button x:Name="backBtn" Content="Vissza" Style="{StaticResource MaterialDesignFlatButton}" Height="32" Click="backBtn_Click"/>
             </StackPanel>
         </ScrollViewer>
