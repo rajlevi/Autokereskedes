@@ -43,7 +43,7 @@ namespace Autokereskedes
             var c1 = new Cim { Varos = "Kecskemét", Utca = "Izsáki út", Hazszam = "10" };
             var k1 = new Autoker.Kereskedes { Nev = "JoKocsi", Jegyzekszam = "123-124-123" };
             c1.Kereskedes=k1;
-            var e1 = new Elado { Nev = "Kis Pista", Telszam = "+36303527532", Szuldatum = "1989.10.05", email="kispista@gmail.com", jelszo = "kispista" };
+            var e1 = new Elado { Nev = "Kis Pista", Telszam = "+36303527532", Szuldatum = "1989.10.05", email="kispista@gmail.com", jelszo = "kispista", Admin=true };
             e1.Kereskedes1=k1;
             var a1 = new Auto {Marka = "BMW", Kivitel = "coupe", Evjarat = "2006", Uzemanyag = "Benzin", Szin = "Szürke" };
             var a2 = new Auto {Marka = "Audi", Kivitel = "SUV", Evjarat = "2012", Uzemanyag = "Dízel", Szin = "Fekete" };

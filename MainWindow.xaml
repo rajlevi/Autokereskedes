@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Autokereskedes"
         mc:Ignorable="d"
-        Title="Főmenü" Height="600" Width="1000">
+        Title="Főmenü" Height="1000" Width="2000">
     <Grid>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>

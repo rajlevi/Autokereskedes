@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Autoker;
 
 namespace Autokereskedes
 {
@@ -21,12 +24,14 @@ namespace Autokereskedes
     /// </summary>
     public partial class LoginPage : Page
     {
-        // Ideiglenes: felhasználók listája (a regisztrációból át kell majd adni)
-        public static List<Register.User> Felhasznalok = new List<Register.User>();
-
+        cnAutoker cn;
+        List<Autoker.Elado> users = new List<Autoker.Elado>();
+        string jog;
         public LoginPage()
         {
             InitializeComponent();
+            cn = new cnAutoker();
+            users.AddRange(cn.Elados.ToList());
         }
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)
@@ -44,19 +49,25 @@ namespace Autokereskedes
             }
 
             // Felhasználó keresése email alapján
-            var user = Felhasznalok.FirstOrDefault(u => u.PhoneNumber == email && u.Password == password);
-            if (user == null)
+            var bejelentkezo = users.FirstOrDefault(u => u.email == email && u.jelszo == password);
+            if (bejelentkezo == null)
             {
                 ShowError("Hibás email cím vagy jelszó!");
                 return;
             }
+            if (bejelentkezo.Admin == true)
+            {
+                jog = "Admin";
+            }
+            else jog = "User";
 
+            string username = bejelentkezo.Nev;
             // Logolás
-            LogToFile($"Bejelentkezés: {email}, szerepkör: {user.Role}, időpont: {DateTime.Now}");
+            LogToFile($"Bejelentkezés: {email}, szerepkör: {jog}, időpont: {DateTime.Now}");
 
             // Jogosultságkezelés: átadható a szerepkör a főmenünek
-            MessageBox.Show($"Sikeres bejelentkezés! Szerepköröd: {user.Role}", "Siker", MessageBoxButton.OK, MessageBoxImage.Information);
-            NavigationService.Navigate(new Mainmenu(user));
+            MessageBox.Show($"Sikeres bejelentkezés! Szerepköröd: {jog}", "Siker", MessageBoxButton.OK, MessageBoxImage.Information);
+            NavigationService.Navigate(new Mainmenu(username, jog));
         }
 
         private void registerBtn_Click(object sender, RoutedEventArgs e)
@@ -66,15 +77,8 @@ namespace Autokereskedes
 
         private void guestBtn_Click(object sender, RoutedEventArgs e)
         {
-            var guest = new Register.User
-            {
-                Username = "Vendég",
-                Password = "",
-                Role = "vásárló",
-                JoinYear = "",
-                PhoneNumber = ""
-            };
-            NavigationService.Navigate(new Mainmenu(guest));
+            jog = "User";
+            NavigationService.Navigate(new Mainmenu("Vendég", jog));
         }
 
         private void ShowError(string message)

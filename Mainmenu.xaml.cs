@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Autoker;
 
 namespace Autokereskedes
 {
@@ -20,26 +23,24 @@ namespace Autokereskedes
     /// </summary>
     public partial class Mainmenu : Page
     {
-        private Register.User loggedInUser;
-        public Mainmenu(Register.User user = null)
+        cnAutoker cn;
+        private string role;
+        private string username;
+        public Mainmenu(string username,string role)
         {
             InitializeComponent();
-            loggedInUser = user;
-            if (loggedInUser != null)
+            cn = new cnAutoker();
+            this.username = username;
+            this.role = role;
+            if (username != "Vendég")
             {
-                UserInfoTextBlock.Text = $"Bejelentkezve: {loggedInUser.Username} ({loggedInUser.Role})";
-                if (loggedInUser.Role == "admin")
-                {
-
-                }
-                if (loggedInUser.Role == "vásárló")
-                {
-                    szerzodesBtn.IsEnabled = false;
-                }
+                UserInfoTextBlock.Text = $"Bejelentkezve: {username} ({role})";
+                szerzodesBtn.IsEnabled = true;
             }
             else
             {
                 UserInfoTextBlock.Text = "Nincs bejelentkezett felhasználó!";
+                szerzodesBtn.IsEnabled = false;
             }
         }
 
@@ -55,7 +56,7 @@ namespace Autokereskedes
 
         private void szerzodesBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (loggedInUser != null && loggedInUser.Role == "admin")
+            if (username != "Vendég" && role == "Admin")
             {
                 NavigationService.Navigate(new Szerzodesiras());
             }

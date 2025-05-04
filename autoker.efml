@@ -73,6 +73,9 @@
     <property name="KereskedesId" type="Int16" p1:ValidateRequired="true" p1:Guid="6028ed94-add4-4bbc-8266-d1f33ef028ee">
       <column name="" not-null="False" />
     </property>
+    <property name="Admin" type="Boolean" p1:ValidateRequired="true" p1:Guid="f0a59757-3b93-43ac-9d2d-5face16524da">
+      <column name="" />
+    </property>
   </class>
   <associations>
     <association name="Cim_Kereskedes" cardinality="OneToOne" p1:Guid="0b9730f8-b0be-4758-9a90-ff47320dd2f2">

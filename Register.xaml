@@ -26,7 +26,8 @@
 
             <TextBox x:Name="FullNameTextBox" materialDesign:HintAssist.Hint="Teljes név" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8"/>
             <TextBox x:Name="EmailTextBox" materialDesign:HintAssist.Hint="Email cím" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8"/>
-            <wpfTool:DateTimePicker x:Name="JoinDatePicker" Format="ShortDate" Watermark="Csatlakozás dátuma" Margin="0,0,0,8"/>
+            <TextBox x:Name="PhoneBox" materialDesign:HintAssist.Hint="telefonszám" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8"/>
+            <wpfTool:DateTimePicker x:Name="JoinDatePicker" Format="ShortDate" Watermark="Születési dátuma" Margin="0,0,0,8"/>
             <PasswordBox x:Name="PasswordBox" materialDesign:HintAssist.Hint="Jelszó" Margin="0,0,0,8"/>
             <PasswordBox x:Name="ConfirmPasswordBox" materialDesign:HintAssist.Hint="Jelszó megerősítése" Margin="0,0,0,16"/>
             <TextBlock x:Name="ErrorTextBlock" Foreground="Red" FontWeight="Bold" Margin="0,0,0,8" TextWrapping="Wrap" Visibility="Collapsed"/>

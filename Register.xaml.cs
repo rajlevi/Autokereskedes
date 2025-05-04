@@ -12,27 +12,34 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Autoker;
 
 namespace Autokereskedes
 {
     /// <summary>
     /// Interaction logic for Register.xaml
     /// </summary>
+    
     public partial class Register : Page
     {
-        public class User
+        cnAutoker cn;
+        /*public class User
         {
             public string Username { get; set; }
             public string JoinYear { get; set; }
             public string PhoneNumber { get; set; }
             public string Password { get; set; }
             public string Role { get; set; }
-        }
+        }*/
 
-        List<User> regisztraltFelhasznalok = new List<User>();
+        List<Autoker.Elado> users = new List<Autoker.Elado>();
         public Register()
         {
             InitializeComponent();
+            cn = new cnAutoker();
+            users.AddRange(cn.Elados.ToList());
         }
 
         private void registerBtn_Click(object sender, RoutedEventArgs e)
@@ -41,7 +48,8 @@ namespace Autokereskedes
             string email = EmailTextBox.Text.Trim();
             string password = PasswordBox.Password;
             string confirmPassword = ConfirmPasswordBox.Password;
-            DateTime? joinDate = JoinDatePicker.Value;
+            string telszam = PhoneBox.Text;
+            string joinDate = (JoinDatePicker.Value).ToString();
 
             ErrorTextBlock.Visibility = Visibility.Collapsed;
             ErrorTextBlock.Text = "";
@@ -67,6 +75,11 @@ namespace Autokereskedes
                 ShowError("A csatlakozás dátuma megadása kötelező!");
                 return;
             }
+            if (telszam == null)
+            {
+                ShowError("Telefonszám megadása kötelező!");
+                return;
+            }
             if (string.IsNullOrWhiteSpace(password))
             {
                 ShowError("A jelszó megadása kötelező!");
@@ -83,26 +96,17 @@ namespace Autokereskedes
                 return;
             }
 
-            // Jogosultságkezelés: az első regisztrált admin, a többi felhasználó
-            string role = regisztraltFelhasznalok.Count == 0 ? "admin" : "felhasználó";
-
-            // Új felhasználó példányosítása
-            var ujFelhasznalo = new User
-            {
-                Username = fullName,
-                Password = password,
-                Role = role,
-                JoinYear = joinDate?.Year.ToString() ?? "",
-                PhoneNumber = email
-            };
-            regisztraltFelhasznalok.Add(ujFelhasznalo);
-            Autokereskedes.LoginPage.Felhasznalok.Add(ujFelhasznalo);
+            // Jogosultságkezelés: az alap regisztrált admin, a többi felhasználó
+            // Új felhasználó hozzáadása
+            
+            var e1 = new Elado { Nev = fullName, Telszam = telszam, Szuldatum = joinDate, email = email, jelszo = password, Admin = false, KereskedesId=0};
+            cn.SaveChanges();
 
             // Logolás
-            LogToFile($"Regisztráció: {fullName}, {email}, {joinDate.Value.ToShortDateString()}, szerepkör: {role}, időpont: {DateTime.Now}");
+            LogToFile($"Regisztráció: {fullName}, {email}, {joinDate}, szerepkör: user, időpont: {DateTime.Now}");
 
             // Sikeres regisztráció
-            MessageBox.Show($"Sikeres regisztráció! Most jelentkezz be.\nSzerepköröd: {role}", "Siker", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"Sikeres regisztráció! Most jelentkezz be.\nSzerepköröd: user", "Siker", MessageBoxButton.OK, MessageBoxImage.Information);
             this.NavigationService.Navigate(new LoginPage());
         }
 
