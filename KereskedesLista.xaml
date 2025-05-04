@@ -10,25 +10,14 @@
       Title="KereskedesLista">
 
     <Grid Background="{DynamicResource MaterialDesignPaper}">
-        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Margin="32" Width="320">
-            <TextBlock Text="Kereskedések összetett keresése" FontSize="22" FontWeight="Bold" Margin="0,0,0,12"/>
-            <TextBox x:Name="NevTextBox" materialDesign:HintAssist.Hint="Név" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8" TextChanged="Kereses_TextChanged"/>
-            <TextBox x:Name="VarosTextBox" materialDesign:HintAssist.Hint="Város" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8" TextChanged="Kereses_TextChanged"/>
-            <TextBox x:Name="UtcaTextBox" materialDesign:HintAssist.Hint="Utca" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8" TextChanged="Kereses_TextChanged"/>
-            <TextBox x:Name="JegyzekszamTextBox" materialDesign:HintAssist.Hint="Jegyzékszám" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8" TextChanged="Kereses_TextChanged"/>
-            <TextBox x:Name="SzervizTextBox" materialDesign:HintAssist.Hint="Szerviz" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8" TextChanged="Kereses_TextChanged"/>
-            <TextBox x:Name="FerohelyTextBox" materialDesign:HintAssist.Hint="Férőhely" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0,0,0,8" TextChanged="Kereses_TextChanged"/>
-
-        </StackPanel>
-        <DataGrid x:Name="ResultsDataGrid" Margin="400,32,32,80" VerticalAlignment="Top" AutoGenerateColumns="False">
+        <DataGrid x:Name="ResultsDataGrid" Margin="32" VerticalAlignment="Top" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding KereskedesID}" Width="*"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding KereskedesId}" Width="*"/>
                 <DataGridTextColumn Header="Név" Binding="{Binding Nev}" Width="*"/>
                 <DataGridTextColumn Header="Város" Binding="{Binding Varos}" Width="*"/>
                 <DataGridTextColumn Header="Utca" Binding="{Binding Utca}" Width="*"/>
+                <DataGridTextColumn Header="Házszám" Binding="{Binding Hazszam}" Width="*"/>
                 <DataGridTextColumn Header="Jegyzékszám" Binding="{Binding Jegyzekszam}" Width="*"/>
-                <DataGridTextColumn Header="Szerviz" Binding="{Binding Szerviz}" Width="*"/>
-                <DataGridTextColumn Header="Férőhely" Binding="{Binding Ferohely}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="backBtn" Content="Vissza" Style="{StaticResource MaterialDesignFlatButton}" Width="100" Height="32" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="32,0,0,32" Click="backBtn_Click"/>

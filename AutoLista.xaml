@@ -21,13 +21,12 @@
         </StackPanel>
         <DataGrid x:Name="ResultsDataGrid" Margin="400,32,32,80" VerticalAlignment="Top" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding AutoID}" Width="*"/>
+                <DataGridTextColumn Header="Kereskedés ID" Binding="{Binding KereskedesId}" Width="*"/>
                 <DataGridTextColumn Header="Márka" Binding="{Binding Marka}" Width="*"/>
-                <DataGridTextColumn Header="Évjárat" Binding="{Binding Evjarat}" Width="*"/>
                 <DataGridTextColumn Header="Kivitel" Binding="{Binding Kivitel}" Width="*"/>
+                <DataGridTextColumn Header="Évjárat" Binding="{Binding Evjarat}" Width="*"/>
+                <DataGridTextColumn Header="Üzemanyag" Binding="{Binding Uzemanyag}" Width="*"/>
                 <DataGridTextColumn Header="Szín" Binding="{Binding Szin}" Width="*"/>
-                <DataGridTextColumn Header="Garancia" Binding="{Binding Garancia}" Width="*"/>
-                <DataGridTextColumn Header="Üzemanyag" Binding="{Binding Uzemenyag}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="backBtn" Content="Vissza" Style="{StaticResource MaterialDesignFlatButton}" Width="100" Height="32" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="32,0,0,32" Click="backBtn_Click"/>
