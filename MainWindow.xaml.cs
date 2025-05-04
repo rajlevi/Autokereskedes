@@ -56,7 +56,7 @@ namespace Autokereskedes
             a2.Kereskedes1 = k2;
             cn.Kereskedes.Add(k1);
             cn.Cims.Add(c1);
-            cn.SaveChanges();
+            //cn.SaveChanges();
             cn.Autos.Add(a1);
             cn.Elados.Add(e1);
             cn.SaveChanges();

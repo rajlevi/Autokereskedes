@@ -7,12 +7,6 @@
     <property name="CimId" type="Int16" shadow="True" p1:ValidateRequired="true" p1:Guid="f389bbb8-926b-4c7e-8def-257553f021ad">
       <column name="" />
     </property>
-    <property name="EladoId" type="Int16" shadow="True" p1:ValidateRequired="true" p1:Guid="ac831724-80ec-4229-9e73-4d95d47fb397">
-      <column name="" />
-    </property>
-    <property name="AutoId" type="Int16" shadow="True" p1:ValidateRequired="true" p1:Guid="70f63df9-42e0-4be8-8905-47eb95d0178d">
-      <column name="" />
-    </property>
     <property name="Nev" type="String" p1:ValidateRequired="true" p1:Guid="efebddc7-5aa4-4dd0-9de3-f1a80b490f7e">
       <column name="" />
     </property>
@@ -35,7 +29,7 @@
     </property>
   </class>
   <class name="Auto" entity-set="Autos" table="Autos" p1:Guid="3443c680-f7d9-4eea-8d16-5743cf9f0420">
-    <id name="AutoId" type="Int16" p1:ValidateRequired="true" p1:Guid="fd590834-75bd-40a4-b4b8-15292abeb6e9">
+    <id name="AutoId" type="Int16" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="fd590834-75bd-40a4-b4b8-15292abeb6e9">
       <column name="" />
     </id>
     <property name="Marka" type="String" p1:ValidateRequired="true" p1:Guid="55ef8595-de6f-4bee-bd9f-45dabb0182f8">
@@ -52,6 +46,9 @@
     </property>
     <property name="Szin" type="String" p1:ValidateRequired="true" p1:Guid="908c3ef2-7461-4753-b17d-2f1f87dac63e">
       <column name="" />
+    </property>
+    <property name="KereskedesId" type="Int16" p1:ValidateRequired="true" p1:Guid="4cb26775-3363-496c-852a-ce2f96c01c65">
+      <column name="" not-null="False" />
     </property>
   </class>
   <class name="Elado" entity-set="Elados" table="Elados" p1:Guid="bff73f4f-9cd7-4bb6-b211-7903c820a83f">
@@ -73,6 +70,9 @@
     <property name="jelszo" type="String" p1:ValidateRequired="true" p1:Guid="50d7b413-5259-45ab-8a81-d4ca0b76ef9a">
       <column name="" />
     </property>
+    <property name="KereskedesId" type="Int16" p1:ValidateRequired="true" p1:Guid="6028ed94-add4-4bbc-8266-d1f33ef028ee">
+      <column name="" not-null="False" />
+    </property>
   </class>
   <associations>
     <association name="Cim_Kereskedes" cardinality="OneToOne" p1:Guid="0b9730f8-b0be-4758-9a90-ff47320dd2f2">
@@ -83,20 +83,20 @@
         <property name="CimId" />
       </end2>
     </association>
-    <association name="Kereskedes_Auto" cardinality="OneToMany" p1:Guid="2bdf4aab-4aff-4ea3-bff7-5ade20cfaa17">
-      <end1 multiplicity="One" name="Kereskedes1" class="Auto" relation-class="Kereskedes" constrained="True" lazy="False" p1:Guid="963d754c-ea33-4467-9a01-a3da1801a4cc">
-        <property name="AutoId" />
+    <association name="Kereskedes_Auto" cardinality="OneToMany" p1:Guid="3db9e42d-3074-408c-add2-ea96a7937f1e">
+      <end1 multiplicity="One" name="Kereskedes1" class="Auto" relation-class="Kereskedes" constrained="True" lazy="False" p1:Guid="1d23439b-9a3b-4630-88a1-ed0e07ae1714">
+        <property name="KereskedesId" />
       </end1>
-      <end2 multiplicity="Many" name="Autos" class="Kereskedes" relation-class="Auto" lazy="False" p1:Guid="423b6768-1287-4f28-8e39-06fb0d9f1fd4">
-        <property name="AutoId" />
+      <end2 multiplicity="Many" name="Autos" class="Kereskedes" relation-class="Auto" lazy="False" p1:Guid="0af67762-30e7-4969-b5eb-2aec4bc9912b">
+        <property name="KereskedesId" />
       </end2>
     </association>
-    <association name="Kereskedes_Elado" cardinality="OneToMany" p1:Guid="6181eb7f-0fb2-47a8-83ba-19cf24c801bb">
-      <end1 multiplicity="One" name="Kereskedes1" class="Elado" relation-class="Kereskedes" constrained="True" lazy="False" p1:Guid="30a4aa74-8070-4db2-9445-28945f0c9013">
-        <property name="EladoId" />
+    <association name="Kereskedes_Elado" cardinality="OneToMany" p1:Guid="daa35fcf-5b78-4e54-b934-432b259937ed">
+      <end1 multiplicity="One" name="Kereskedes1" class="Elado" relation-class="Kereskedes" constrained="True" lazy="False" p1:Guid="05d6089b-9aee-4741-975e-eba29c0fbc11">
+        <property name="KereskedesId" />
       </end1>
-      <end2 multiplicity="Many" name="Elados" class="Kereskedes" relation-class="Elado" lazy="False" p1:Guid="08905d72-d967-4d59-a1fb-7941c0c27a83">
-        <property name="EladoId" />
+      <end2 multiplicity="Many" name="Elados" class="Kereskedes" relation-class="Elado" lazy="False" p1:Guid="45e1b5b0-1ae0-4efb-96d5-c123af2dd387">
+        <property name="KereskedesId" />
       </end2>
     </association>
   </associations>
