@@ -24,10 +24,7 @@ namespace Autokereskedes
     public partial class KereskedesLista : Page
     {
         cnAutoker cn;
-        List<Autoker.Kereskedes> kereskedes = new List<Autoker.Kereskedes>();
-
-        /*private List<Kereskedes> kereskedesek = new List<Kereskedes>
-        {
+        /*{
             new Kereskedes { KereskedesID = 1, Nev = "Karcsi Autóház", Varos = "Budapest", Utca = "Fő utca 1.", Jegyzekszam = "12345", Szerviz = "Van", Ferohely = 50 },
             new Kereskedes { KereskedesID = 2, Nev = "MaxiCar", Varos = "Debrecen", Utca = "Kossuth tér 2.", Jegyzekszam = "23456", Szerviz = "Nincs", Ferohely = 30 },
             new Kereskedes { KereskedesID = 3, Nev = "AutoPlaza", Varos = "Győr", Utca = "Petőfi S. u. 3.", Jegyzekszam = "34567", Szerviz = "Van", Ferohely = 40 },
@@ -38,11 +35,17 @@ namespace Autokereskedes
         public KereskedesLista()
         {
             InitializeComponent();
-            //OSSZECSATOLNI A CIMEK TABLAVAL!!!!!
-            
             cn = new cnAutoker();
-            kereskedes.AddRange(cn.Kereskedes.ToList());
-            ResultsDataGrid.ItemsSource = kereskedes;
+            var combinedList = cn.Kereskedes.Include(k => k.Cim).Select(k => new
+            {
+                k.KereskedesId,
+                k.Nev,
+                k.Jegyzekszam,
+                k.Cim.Varos,
+                k.Cim.Utca,
+                k.Cim.Hazszam
+            }).ToList();
+            ResultsDataGrid.ItemsSource = combinedList;
         }
 
         private void backBtn_Click(object sender, RoutedEventArgs e)
@@ -50,38 +53,6 @@ namespace Autokereskedes
             NavigationService.GoBack();
         }
 
-
-
-        private void Kereses_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            string nev = NevTextBox.Text.ToLower();
-            string varos = VarosTextBox.Text.ToLower();
-            string utca = UtcaTextBox.Text.ToLower();
-            string jegyzekszam = JegyzekszamTextBox.Text.ToLower();
-            string szerviz = SzervizTextBox.Text.ToLower();
-            string ferohely = FerohelyTextBox.Text.ToLower();
-
-            var talalatok = kereskedes.Where(k =>
-                (string.IsNullOrWhiteSpace(nev) || k.Nev.ToLower().Contains(nev)) &&
-                //(string.IsNullOrWhiteSpace(varos) || k.Varos.ToLower().Contains(varos)) &&
-                //(string.IsNullOrWhiteSpace(utca) || k.Utca.ToLower().Contains(utca)) &&
-                (string.IsNullOrWhiteSpace(jegyzekszam) || k.Jegyzekszam.ToLower().Contains(jegyzekszam)) //&&
-                //(string.IsNullOrWhiteSpace(szerviz) || k.Szerviz.ToLower().Contains(szerviz)) &&
-                //(string.IsNullOrWhiteSpace(ferohely) || k.Ferohely.ToString().Contains(ferohely))
-            ).ToList();
-
-            ResultsDataGrid.ItemsSource = talalatok;
         }
     }
 
-    /*public class Kereskedes
-    {
-        public int KereskedesID { get; set; }
-        public string Nev { get; set; }
-        public string Varos { get; set; }
-        public string Utca { get; set; }
-        public string Jegyzekszam { get; set; }
-        public string Szerviz { get; set; }
-        public int Ferohely { get; set; }
-    }*/
-}

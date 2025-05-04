@@ -23,7 +23,7 @@ namespace Autokereskedes
     /// </summary>
     public partial class AutoLista : Page
     {
-        public class Auto
+        /*public class Auto
         {
             public int AutoID { get; set; }
             public string Marka { get; set; }
@@ -37,7 +37,7 @@ namespace Autokereskedes
             {
                 return $"{Marka} - {Kivitel} - {Evjarat} - {Szin} - {Garancia} - {Uzemenyag}";
             }
-        }
+        }*/
 
         /*private List<Auto> autoLista = new List<Auto>
         {
