@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using PdfSharp.Pdf;
 using PdfSharp.Drawing;
 using PdfSharp.Fonts;
+using Autoker;
 
 namespace Autokereskedes
 {
@@ -24,9 +25,60 @@ namespace Autokereskedes
     /// </summary>
     public partial class Szerzodesiras : Page
     {
+
+        private void ArTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !int.TryParse(e.Text, out _); // Csak számokat engedélyez
+        }
         public Szerzodesiras()
         {
             InitializeComponent();
+            BetoltEladok();
+            BetoltAutok();
+        }
+
+        private void BetoltEladok()
+        {
+            using (var context = new cnAutoker())
+            {
+                var eladok = context.Elados.ToList();
+                if (eladok.Count == 0)
+                {
+                    MessageBox.Show("Nincsenek eladók az adatbázisban!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                EladokListBox.ItemsSource = eladok;
+            }
+        }
+
+        private void BetoltAutok()
+        {
+            using (var context = new cnAutoker())
+            {
+                var autok = context.Autos.ToList();
+                if (autok.Count == 0)
+                {
+                    MessageBox.Show("Nincsenek autók az adatbázisban!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                AutokListBox.ItemsSource = autok;
+            }
+        }
+
+        private void EladokListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (EladokListBox.SelectedItem is Elado kivalasztottElado)
+            {
+                // Az eladó adatait közvetlenül a kiválasztott objektumból használhatod
+                MessageBox.Show($"Kiválasztott eladó: {kivalasztottElado.Nev}, Telefonszám: {kivalasztottElado.Telszam}");
+            }
+        }
+
+        private void AutokListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (AutokListBox.SelectedItem is Auto kivalasztottAuto)
+            {
+                // Az autó adatait közvetlenül a kiválasztott objektumból használhatod
+                MessageBox.Show($"Kiválasztott autó: {kivalasztottAuto.Marka}, Típus: {kivalasztottAuto.Kivitel}, Évjárat: {kivalasztottAuto.Evjarat}");
+            }
         }
         public class CustomFontResolver : IFontResolver
         {
@@ -71,64 +123,69 @@ namespace Autokereskedes
             ErrorTextBlock.Visibility = Visibility.Collapsed;
             ErrorTextBlock.Text = "";
 
-            // Adatok beolvasása
-            string eladoNev = EladoNevTextBox.Text.Trim();
-            string eladoCim = EladoCimTextBox.Text.Trim();
-            string vevoNev = VevoNevTextBox.Text.Trim();
-            string vevoCim = VevoCimTextBox.Text.Trim();
-            string marka = MarkaTextBox.Text.Trim();
-            string tipus = TipusTextBox.Text.Trim();
-            string evjarat = EvjaratTextBox.Text.Trim();
-            string ar = ArTextBox.Text.Trim();
-            string datum = DatumPicker.SelectedDate?.ToString("yyyy.MM.dd") ?? "";
-
-            // Validáció
-            if (string.IsNullOrWhiteSpace(eladoNev) || string.IsNullOrWhiteSpace(eladoCim) ||
-                string.IsNullOrWhiteSpace(vevoNev) || string.IsNullOrWhiteSpace(vevoCim) ||
-                string.IsNullOrWhiteSpace(marka) || string.IsNullOrWhiteSpace(tipus) ||
-                string.IsNullOrWhiteSpace(evjarat) || string.IsNullOrWhiteSpace(ar) || string.IsNullOrWhiteSpace(datum))
+            if (EladokListBox.SelectedItem is Elado kivalasztottElado && AutokListBox.SelectedItem is Auto kivalasztottAuto)
             {
-                ErrorTextBlock.Text = "Minden mező kitöltése kötelező!";
-                ErrorTextBlock.Visibility = Visibility.Visible;
-                return;
-            }
+                string eladoNev = kivalasztottElado.Nev;
+                string eladoTel = kivalasztottElado.Telszam; // Telefonszámot használjuk címként
+                string marka = kivalasztottAuto.Marka;
+                string tipus = kivalasztottAuto.Kivitel;
+                string evjarat = kivalasztottAuto.Evjarat;
 
-            try
-            {
-                // PDF generálás (PdfSharp szükséges!)
-                var dlg = new Microsoft.Win32.SaveFileDialog
+                string ar = ArTextBox.Text.Trim();
+
+                string vevoNev = VevoNevTextBox.Text.Trim();
+                string vevoCim = VevoCimTextBox.Text.Trim();
+                string datum = DatumPicker.SelectedDate?.ToString("yyyy.MM.dd") ?? "";
+
+                // Validáció
+                if (string.IsNullOrWhiteSpace(vevoNev) || string.IsNullOrWhiteSpace(vevoCim) || string.IsNullOrWhiteSpace(datum))
                 {
-                    FileName = "szerzodes.pdf",
-                    Filter = "PDF dokumentum (*.pdf)|*.pdf"
-                };
-                if (dlg.ShowDialog() == true)
+                    ErrorTextBlock.Text = "Minden mező kitöltése kötelező!";
+                    ErrorTextBlock.Visibility = Visibility.Visible;
+                    return;
+                }
+
+                try
                 {
-                    var doc = new PdfDocument();
-                    doc.Info.Title = "Autó adásvételi szerződés";
-                    var page = doc.AddPage();
-                    var gfx = XGraphics.FromPdfPage(page);
-                    var font = new XFont("TimesNewRoman", 12);
-                    double y = 40;
-                    gfx.DrawString("Autó adásvételi szerződés", new XFont("TimesNewRoman", 16), XBrushes.Black, 40, y);
-                    y += 40;
-                    gfx.DrawString($"Eladó neve: {eladoNev}", font, XBrushes.Black, 40, y); y += 20;
-                    gfx.DrawString($"Eladó címe: {eladoCim}", font, XBrushes.Black, 40, y); y += 30;
-                    gfx.DrawString($"Vevő neve: {vevoNev}", font, XBrushes.Black, 40, y); y += 20;
-                    gfx.DrawString($"Vevő címe: {vevoCim}", font, XBrushes.Black, 40, y); y += 30;
-                    gfx.DrawString($"Autó márkája: {marka}", font, XBrushes.Black, 40, y); y += 20;
-                    gfx.DrawString($"Autó típusa: {tipus}", font, XBrushes.Black, 40, y); y += 20;
-                    gfx.DrawString($"Évjárat: {evjarat}", font, XBrushes.Black, 40, y); y += 20;
-                    gfx.DrawString($"Vételár: {ar} Ft", font, XBrushes.Black, 40, y); y += 30;
-                    gfx.DrawString($"Dátum: {datum}", font, XBrushes.Black, 40, y); y += 40;
-                    gfx.DrawString("Eladó aláírása: ______________________", font, XBrushes.Black, 40, y); y += 30;
-                    gfx.DrawString("Vevő aláírása: ______________________", font, XBrushes.Black, 40, y);
-                    doc.Save(dlg.FileName);
-                    MessageBox.Show("A szerződés PDF-ben elmentve!", "Siker", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // PDF generálás
+                    var dlg = new Microsoft.Win32.SaveFileDialog
+                    {
+                        FileName = "szerzodes.pdf",
+                        Filter = "PDF dokumentum (*.pdf)|*.pdf"
+                    };
+                    if (dlg.ShowDialog() == true)
+                    {
+                        var doc = new PdfDocument();
+                        doc.Info.Title = "Autó adásvételi szerződés";
+                        var page = doc.AddPage();
+                        var gfx = XGraphics.FromPdfPage(page);
+                        var font = new XFont("TimesNewRoman", 12);
+                        double y = 40;
+                        gfx.DrawString("Autó adásvételi szerződés", new XFont("TimesNewRoman", 16), XBrushes.Black, 40, y);
+                        y += 40;
+                        gfx.DrawString($"Eladó neve: {eladoNev}", font, XBrushes.Black, 40, y); y += 20;
+                        gfx.DrawString($"Eladó telefonszáma: {eladoTel}", font, XBrushes.Black, 40, y); y += 30;
+                        gfx.DrawString($"Vevő neve: {vevoNev}", font, XBrushes.Black, 40, y); y += 20;
+                        gfx.DrawString($"Vevő címe: {vevoCim}", font, XBrushes.Black, 40, y); y += 30;
+                        gfx.DrawString($"Autó márkája: {marka}", font, XBrushes.Black, 40, y); y += 20;
+                        gfx.DrawString($"Autó típusa: {tipus}", font, XBrushes.Black, 40, y); y += 20;
+                        gfx.DrawString($"Évjárat: {evjarat}", font, XBrushes.Black, 40, y); y += 20;
+                        gfx.DrawString($"Vételár: {ar} Ft", font, XBrushes.Black, 40, y); y += 30;
+                        gfx.DrawString($"Dátum: {datum}", font, XBrushes.Black, 40, y); y += 40;
+                        gfx.DrawString("Eladó aláírása: ______________________", font, XBrushes.Black, 40, y); y += 30;
+                        gfx.DrawString("Vevő aláírása: ______________________", font, XBrushes.Black, 40, y);
+                        doc.Save(dlg.FileName);
+                        MessageBox.Show("A szerződés PDF-ben elmentve!", "Siker", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Hiba a PDF mentésekor: {ex.Message}", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"Hiba a PDF mentésekor: {ex.Message}", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Kérlek, válassz ki egy eladót és egy autót!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }
