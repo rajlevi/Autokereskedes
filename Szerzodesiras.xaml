@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Autokereskedes"
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:wpfTool="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" d:DesignWidth="800"
       Title="Szerzodesiras" Height="802">
 
@@ -30,7 +30,8 @@
 
 
                 <!-- Dátum -->
-                <DatePicker x:Name="DatumPicker" Margin="0,0,0,16" materialDesign:HintAssist.Hint="Dátum"/>
+                <wpfTool:DateTimePicker x:Name="DatumPicker" Format="ShortDate" Watermark="Dátum kiválasztása" Margin="0,0,0,16"/>
+
 
                 <!-- Hibaüzenet -->
                 <TextBlock x:Name="ErrorTextBlock" Foreground="Red" FontWeight="Bold" Margin="0,0,0,8" TextWrapping="Wrap" Visibility="Collapsed"/>

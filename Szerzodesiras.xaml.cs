@@ -20,9 +20,7 @@ using Autoker;
 
 namespace Autokereskedes
 {
-    /// <summary>
-    /// Interaction logic for Szerzodesiras.xaml
-    /// </summary>
+    
     public partial class Szerzodesiras : Page
     {
 
@@ -67,7 +65,7 @@ namespace Autokereskedes
         {
             if (EladokListBox.SelectedItem is Elado kivalasztottElado)
             {
-                // Az eladó adatait közvetlenül a kiválasztott objektumból használhatod
+                
                 MessageBox.Show($"Kiválasztott eladó: {kivalasztottElado.Nev}, Telefonszám: {kivalasztottElado.Telszam}");
             }
         }
@@ -76,7 +74,7 @@ namespace Autokereskedes
         {
             if (AutokListBox.SelectedItem is Auto kivalasztottAuto)
             {
-                // Az autó adatait közvetlenül a kiválasztott objektumból használhatod
+                
                 MessageBox.Show($"Kiválasztott autó: {kivalasztottAuto.Marka}, Típus: {kivalasztottAuto.Kivitel}, Évjárat: {kivalasztottAuto.Evjarat}");
             }
         }
@@ -126,7 +124,7 @@ namespace Autokereskedes
             if (EladokListBox.SelectedItem is Elado kivalasztottElado && AutokListBox.SelectedItem is Auto kivalasztottAuto)
             {
                 string eladoNev = kivalasztottElado.Nev;
-                string eladoTel = kivalasztottElado.Telszam; // Telefonszámot használjuk címként
+                string eladoTel = kivalasztottElado.Telszam; 
                 string marka = kivalasztottAuto.Marka;
                 string tipus = kivalasztottAuto.Kivitel;
                 string evjarat = kivalasztottAuto.Evjarat;
@@ -135,7 +133,7 @@ namespace Autokereskedes
 
                 string vevoNev = VevoNevTextBox.Text.Trim();
                 string vevoCim = VevoCimTextBox.Text.Trim();
-                string datum = DatumPicker.SelectedDate?.ToString("yyyy.MM.dd") ?? "";
+                string datum = DatumPicker.Value?.ToString("yyyy.MM.dd") ?? "";
 
                 // Validáció
                 if (string.IsNullOrWhiteSpace(vevoNev) || string.IsNullOrWhiteSpace(vevoCim) || string.IsNullOrWhiteSpace(datum))
@@ -172,8 +170,8 @@ namespace Autokereskedes
                         gfx.DrawString($"Évjárat: {evjarat}", font, XBrushes.Black, 40, y); y += 20;
                         gfx.DrawString($"Vételár: {ar} Ft", font, XBrushes.Black, 40, y); y += 30;
                         gfx.DrawString($"Dátum: {datum}", font, XBrushes.Black, 40, y); y += 40;
-                        gfx.DrawString("Eladó aláírása: ______________________", font, XBrushes.Black, 40, y); y += 30;
-                        gfx.DrawString("Vevő aláírása: ______________________", font, XBrushes.Black, 40, y);
+                        gfx.DrawString($"Eladó aláírása: {eladoNev}", font, XBrushes.Black, 40, y); y += 30;
+                        gfx.DrawString($"Vevő aláírása: {vevoNev}", font, XBrushes.Black, 40, y);
                         doc.Save(dlg.FileName);
                         MessageBox.Show("A szerződés PDF-ben elmentve!", "Siker", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
